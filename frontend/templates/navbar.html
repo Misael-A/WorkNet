@@ -1,0 +1,110 @@
+<!-- templates/navbar.html -->
+<!-- Navbar móvil (visible en < md) -->
+<nav class="navbar navbar-light bg-light d-md-none">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasMenu"
+            aria-controls="offcanvasMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="assets/logo.png" alt="Logo Planta Externa" height="30" class="d-inline-block align-text-top">
+      Gestión
+    </a>
+  </div>
+</nav>
+
+<!-- Offcanvas menú lateral -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasMenuLabel">Menú</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+  </div>
+  <div class="offcanvas-body p-0">
+    <nav class="menuLateral p-3">
+      <div class="logo-container mb-4 text-center">
+        <img src="assets/logo.png" alt="Logo Planta Externa" class="img-fluid" />
+      </div>
+      <ul class="menu-list">
+        <li><a href="/">🏠 Inicio</a></li>
+        <li class="menu-group">
+          <div class="menu-group-title">✏️ Agregar</div>
+          <ul class="menu-group-items">
+            <li><a href="zonas.html">📍 Zonas</a></li>
+            <li><a href="tipos_trabajo.html">🔧 Tipos de Trabajo</a></li>
+            <li><a href="tecnicos.html">👷 Técnicos</a></li>
+          </ul>
+        </li>
+        <li class="menu-group">
+          <div class="menu-group-title">📊 Reportes</div>
+          <ul class="menu-group-items">
+            <li><a href="reporte_fusion.html">📊 Reporte Fusión</a></li>
+            <li><a href="reporte_tendido.html">📊 Reporte Tendido</a></li>
+          </ul>
+        </li>
+        <li class="menu-group">
+          <div class="menu-group-title">📝 Registro</div>
+          <ul class="menu-group-items">
+            <li><a href="tendido.html">⚡ Registro Tendido</a></li>
+            <li><a href="fusion.html">🧪 Registro Fusión</a></li>
+          </ul>
+        </li>
+        <li class="menu-group">
+          <div class="menu-group-title">⏱ Validar Extras</div>
+          <ul class="menu-group-items">
+            <li><a href="asistencia.html">⏱ Asistencia</a></li>
+            <li><a href="asistencia_extras.html">⏱ Horas Extras</a></li>
+          </ul>
+        </li>
+        <li><a href="actividades.html">📋 Actividades</a></li>
+        <li><a href="agenda.html">🗓 Mi Agenda</a></li>
+        <li><a href="proyecto.html">📁 Registrar Proyecto</a></li>
+        <li><a href="proyecto_detalle.html">📄 Detalles del Proyecto</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<!-- Sidebar fijo en desktop (>= md) -->
+<aside class="menuLateral col-12 col-md-2 d-none d-md-block">
+  <div class="logo-container mb-4 text-center">
+    <img src="assets/logo.png" alt="Logo Planta Externa" class="img-fluid" />
+  </div>
+  <ul class="menu-list">
+    <li><a href="/">🏠 Inicio</a></li>
+    <li class="menu-group">
+      <div class="menu-group-title">✏️ Agregar</div>
+      <ul class="menu-group-items">
+        <li><a href="zonas.html">📍 Zonas</a></li>
+        <li><a href="tipos_trabajo.html">🔧 Tipos de Trabajo</a></li>
+        <li><a href="tecnicos.html">👷 Técnicos</a></li>
+      </ul>
+    </li>
+    <li class="menu-group">
+      <div class="menu-group-title">📊 Reportes</div>
+      <ul class="menu-group-items">
+        <li><a href="reporte_fusion.html">📊 Reporte Fusión</a></li>
+        <li><a href="reporte_tendido.html">📊 Reporte Tendido</a></li>
+      </ul>
+    </li>
+    <li class="menu-group">
+      <div class="menu-group-title">📝 Registro</div>
+      <ul class="menu-group-items">
+        <li><a href="tendido.html">⚡ Registro Tendido</a></li>
+        <li><a href="fusion.html">🧪 Registro Fusión</a></li>
+      </ul>
+    </li>
+    <li class="menu-group">
+      <div class="menu-group-title">⏱ Validar Extras</div>
+      <ul class="menu-group-items">
+        <li><a href="asistencia.html">⏱ Asistencia</a></li>
+        <li><a href="asistencia_extras.html">⏱ Horas Extras</a></li>
+      </ul>
+    </li>
+    <li><a href="actividades.html">📋 Actividades</a></li>
+    <li><a href="agenda.html">🗓 Mi Agenda</a></li>
+    <li><a href="proyecto.html">📁 Registrar Proyecto</a></li>
+    <li><a href="proyecto_detalle.html">📄 Detalles del Proyecto</a></li>
+  </ul>
+</aside>

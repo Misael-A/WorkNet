@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🗓 Agenda de Actividades</title>
+
+  <!-- Bootstrap 5 -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet"/>
+
+  <!-- FullCalendar CSS -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.css" 
+    rel="stylesheet"/>
+
+  <!-- Tu CSS base -->
+  <link href="css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body data-tipo="agenda">
+  <!-- Sidebar fijo -->
+<nav class="menuLateral">
+  <div class="logo-container">
+    <img src="assets/logo.png" alt="Logo Planta Externa" />
+  </div>
+  <ul class="menu-list">
+    <li><a href="/">🏠 Inicio</a></li>
+
+    <li class="menu-group">
+      <div class="menu-group-title">✏️ Agregar</div>
+      <ul class="menu-group-items">
+        <li><a href="zonas.html">📍 Zonas</a></li>
+        <li><a href="tipos_trabajo.html">🔧 Tipos de Trabajo</a></li>
+        <li><a href="tecnicos.html">👷 Técnicos</a></li>
+      </ul>
+    </li>
+
+    <li class="menu-group">
+      <div class="menu-group-title">📊 Reportes</div>
+      <ul class="menu-group-items">
+        <li><a href="reporte_fusion.html">📊 Reporte Fusión</a></li>
+        <li><a href="reporte_tendido.html">📊 Reporte Tendido</a></li>
+      </ul>
+    </li>
+
+    <li class="menu-group">
+      <div class="menu-group-title">📝 Registro</div>
+      <ul class="menu-group-items">
+        <li><a href="tendido.html">⚡ Registro Tendido</a></li>
+        <li><a href="fusion.html">🧪 Registro Fusión</a></li>
+      </ul>
+    </li>
+
+    <li class="menu-group">
+      <div class="menu-group-title">⏱ Validar Extras</div>
+      <ul class="menu-group-items">
+        <li><a href="asistencia.html">⏱ Asistencia</a></li>
+        <li><a href="asistencia_extras.html">⏱ Horas Extras</a></li>
+      </ul>
+    </li>
+
+    <li><a href="actividades.html">📋 Actividades</a></li>
+    <li><a href="agenda.html">🗓 Mi Agenda</a></li>
+    <li><a href="proyecto.html">Registrar Proyecto</a></li>
+    <li><a href="proyecto_detalle.html">Detalles del Proyecto</a></li>
+  </ul>
+</nav>
+
+  <!-- Contenido principal -->
+  <main class="p-4" style="margin-left:250px;">
+    <h2 class="mb-4">🗓 Agenda de Actividades</h2>
+    <div id="calendar"></div>
+  </main>
+
+  <!-- Modal para crear recordatorio -->
+  <div class="modal fade" id="modalRecordatorio" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="formRecordatorio">
+          <div class="modal-header">
+            <h5 class="modal-title">📌 Nuevo Recordatorio</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Título</label>
+              <input type="text" id="rec_titulo" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Descripción</label>
+              <textarea id="rec_descripcion" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="row g-3">
+              <div class="col">
+                <label class="form-label">Fecha</label>
+                <input type="date" id="rec_fecha" class="form-control" required>
+              </div>
+              <div class="col">
+                <label class="form-label">Hora</label>
+                <input type="time" id="rec_hora" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<!-- Modal Detalle de Actividad -->
+<div class="modal fade" id="modalActividadDetalle" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="detalleTitulo"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-2 text-dark" id="detalleContenido">
+          <!-- Se inyecta aquí la info -->
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="js/agenda.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔍 Reporte Horas Extras</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- DataTables CSS -->
+  <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+  <!-- Buttons CSS -->
+  <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+  <!-- Dashboard CSS -->
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body id="index-page">
+  <!-- Aquí el navbar se inyecta vía JS -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Contenedor principal -->
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar (vacío, tu navbar.js o layout global lo llenará) -->
+      <div id="sidebar" class="col-12 col-md-2 p-0"></div>
+
+      <!-- Área de contenido -->
+      <main class="col-12 col-md-10 p-4">
+        <h2 class="mb-4">🔍 Reporte Horas Extras</h2>
+
+        <!-- Filtros + acciones -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row g-3 align-items-end">
+              <div class="col-md-3">
+                <label for="re_tec" class="form-label">Técnico</label>
+                <select id="re_tec" class="form-select"></select>
+              </div>
+              <div class="col-md-3">
+                <label for="re_desde" class="form-label">Desde</label>
+                <input type="date" id="re_desde" class="form-control" />
+              </div>
+              <div class="col-md-3">
+                <label for="re_hasta" class="form-label">Hasta</label>
+                <input type="date" id="re_hasta" class="form-control" />
+              </div>
+              <div class="col-md-2 d-grid">
+                <button id="re_add_asistencia" class="btn btn-primary">Añadir Asistencia</button>
+              </div>
+              <div class="col-md-2 d-grid">
+                <button id="re_add_actividad" class="btn btn-secondary">Añadir Actividad</button>
+              </div>
+              <div class="col-md-3 d-grid">
+                <button id="btn_generar_reporte_extras" class="btn btn-warning">Generar Reporte</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asistencias seleccionadas -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5>Asistencias Seleccionadas</h5>
+            <div class="table-responsive">
+              <table id="tablaSelAsistencias" class="table table-bordered w-100">
+                <thead>
+                  <tr>
+                    <th>Técnico</th>
+                    <th>Fecha Ingreso</th>
+                    <th>Hora Ingreso</th>
+                    <th>Fecha Salida</th>
+                    <th>Hora Salida</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actividades seleccionadas -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5>Actividades Seleccionadas</h5>
+            <div class="table-responsive">
+              <table id="tablaSelActividades" class="table table-bordered w-100">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Categoría</th>
+                    <th>Actividad</th>
+                    <th>Detalle Actividad</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Fin</th>
+                    <th>Zona</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reporte final -->
+        <div class="card">
+          <div class="card-body">
+            <h5>Reporte Horas Extras</h5>
+            <div class="table-responsive">
+              <table id="tablaReporteExtras" class="display table table-bordered w-100">
+                <thead>
+                  <tr>
+                    <th>Fecha Ingreso</th>
+                    <th>Fecha Salida</th>
+                    <th>Lugar</th>
+                    <th>Técnico</th>
+                    <th>Categoría</th>
+                    <th>Actividad</th>
+                    <th>Detalle Actividad</th>
+                    <th>Hora Ingreso</th>
+                    <th>Primera Actividad</th>
+                    <th>Fin Última Actividad</th>
+                    <th>Hora Salida</th>
+                    <th>Total Horas Extras</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal: Seleccionar Asistencias -->
+  <div class="modal fade" id="modalSelAsistencias" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Seleccionar Asistencias</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table id="tablaModalAsistencias" class="display table table-striped w-100">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="chk_all_asist"></th>
+                  <th>ID</th>
+                  <th>Fecha Ingreso</th>
+                  <th>Hora Ingreso</th>
+                  <th>Fecha Salida</th>
+                  <th>Hora Salida</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btnSelAsistConfirm" class="btn btn-primary">Agregar Seleccionadas</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Seleccionar Actividades -->
+  <div class="modal fade" id="modalSelActividades" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Seleccionar Actividades</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table id="tablaModalActividades" class="display table table-striped w-100">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="chk_all_act"></th>
+                  <th>ID</th>
+                  <th>Fecha</th>
+                  <th>Categoría</th>
+                  <th>Actividad</th>
+                  <th>Detalle</th>
+                  <th>Hora Inicio</th>
+                  <th>Hora Fin</th>
+                  <th>Zona</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btnSelActConfirm" class="btn btn-primary">Agregar Seleccionadas</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+  <script src="js/reporte_horas_extras.js"></script>
+  <script src="js/navbar.js"></script>
+</body>
+</html>

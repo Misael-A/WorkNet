@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>📋 Listado de Actividades</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- DataTables + Bootstrap 5 CSS -->
+  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+  <!-- DataTables Buttons CSS -->
+  <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet" />
+
+  <!-- Tus estilos -->
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+
+  <style>
+    /* Cursor pointer para filas clicables */
+    #tablaFusion tbody tr,
+    #tablaTendido tbody tr {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+
+  <main class="p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>📋 Gestión de Actividades</h2>
+      <button class="btn btn-secondary" onclick="history.back()">← Volver</button>
+    </div>
+
+    <!-- Pestañas Fusión / Tendido -->
+    <ul class="nav nav-tabs mb-4" role="tablist">
+      <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#fusion">🧪 Fusión</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tendido">⚡ Tendido</button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- Actividades de Fusión -->
+      <div class="tab-pane fade show active" id="fusion">
+        <div class="d-flex justify-content-between mb-2">
+          <h5>Actividades de Fusión</h5>
+          <a href="fusion.html" class="btn btn-success">➕ Nueva Fusión</a>
+        </div>
+        <div class="table-responsive">
+          <!-- Contenedor para botones de export -->
+          <div id="buttonsFusion" class="mb-2"></div>
+          <table id="tablaFusion" class="table table-striped table-bordered w-100">
+            <thead>
+              <tr>
+                <th style="display:none;">ID</th>
+                <th>Categoria de Actividad</th>
+                <th>Actividad</th>
+                <th>Técnico</th>
+                <th>Zona</th>
+                <th>Tipo de Trabajo</th>
+                <th>Estado</th>
+                <th>Fecha Inicio</th>
+                <th>Horario Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Horario Fin</th>
+                <th>Coordenadas</th>
+                <th>Detalle</th>
+                <th>Observaciones</th>
+                <th>Mensaje</th>
+                <th>Imágenes</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Actividades de Tendido -->
+      <div class="tab-pane fade" id="tendido">
+        <div class="d-flex justify-content-between mb-2">
+          <h5>Actividades de Tendido</h5>
+          <a href="tendido.html" class="btn btn-success">➕ Nuevo Tendido</a>
+        </div>
+        <div class="table-responsive">
+          <!-- Contenedor para botones de export -->
+          <div id="buttonsTendido" class="mb-2"></div>
+          <table id="tablaTendido" class="table table-striped table-bordered w-100">
+            <thead>
+              <tr>
+                <th style="display:none;">ID</th>
+                <th>Categoria de Actividad</th>
+                <th>Actividad</th>
+                <th>Técnico</th>
+                <th>Zona</th>
+                <th>Tipo de Trabajo</th>
+                <th>Estado</th>
+                <th>Fecha Inicio</th>
+                <th>Horario Inicio</th>
+                <th>Fibra Solicitada</th>
+                <th>Fibra Utilizada</th>
+                <th>Fecha Fin</th>
+                <th>Horario Fin</th>
+                <th>Coordenadas</th>
+                <th>Detalle</th>
+                <th>Observaciones</th>
+                <th>Mensaje</th>
+                <th>Imágenes</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Detalle / Editar Actividad -->
+    <div class="modal fade" id="modalActividad" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content bg-dark text-light">
+          <div class="modal-header">
+            <h5 class="modal-title">Detalle / Editar Actividad</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="formActividad" class="row g-3">
+              <input type="hidden" id="modal_id" name="id_actividad" />
+              <div class="col-md-6">
+                <label class="form-label">Actividad</label>
+                <input type="text" id="modal_actividad" name="actividad" class="form-control bg-secondary text-light" disabled />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Técnico</label>
+                <select id="modal_tecnico" name="tecnico" class="form-select bg-secondary text-light" disabled></select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Zona</label>
+                <select id="modal_zona" name="zona_trabajo" class="form-select bg-secondary text-light" disabled></select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Tipo de Trabajo</label>
+                <select id="modal_tipo" name="tipo_trabajo" class="form-select bg-secondary text-light" disabled></select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Estado</label>
+                <select id="modal_estado" name="estado" class="form-select bg-secondary text-light" disabled>
+                  <option value="Realizado">✅ Realizado</option>
+                  <option value="Inconcluso">🟠 Inconcluso</option>
+                  <option value="No realizado">🔴 No realizado</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Fecha Inicio</label>
+                <input type="date" id="modal_fecha_inicio" name="fecha_inicio" class="form-control bg-secondary text-light" disabled />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Hora Inicio</label>
+                <input type="time" id="modal_hora_inicio" name="hora_inicio" class="form-control bg-secondary text-light" disabled />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Fecha Fin</label>
+                <input type="date" id="modal_fecha_fin" name="fecha_fin" class="form-control bg-secondary text-light" disabled />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Hora Fin</label>
+                <input type="time" id="modal_hora_fin" name="hora_fin" class="form-control bg-secondary text-light" disabled />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Coordenadas</label>
+                <input type="text" id="modal_coordenadas" name="coordenadas" class="form-control bg-secondary text-light" disabled />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Detalle Actividad</label>
+                <textarea id="modal_detalle" name="detalle_actividad" class="form-control bg-secondary text-light" rows="3" disabled></textarea>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Observaciones</label>
+                <textarea id="modal_observaciones" name="observaciones" class="form-control bg-secondary text-light" rows="2" disabled></textarea>
+              </div>
+              <div id="grupo_fibra" class="row g-3" style="display:none;">
+                <div class="col-md-6">
+                  <label class="form-label">Fibra Solicitada</label>
+                  <input type="text" id="modal_fibra_solicitada" name="fibra_solicitada" class="form-control bg-secondary text-light" disabled />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Fibra Utilizada</label>
+                  <input type="text" id="modal_fibra_utilizada" name="fibra_utilizada" class="form-control bg-secondary text-light" disabled />
+                </div>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Mensaje Generado</label>
+                <div id="modal_mensaje" class="p-2 bg-secondary" style="border-radius:4px; max-height:150px; overflow-y:auto;"></div>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Imágenes Existentes</label>
+                <div id="modal_imagenes" class="d-flex flex-wrap gap-2 p-2 bg-secondary" style="border-radius:4px; max-height:200px; overflow-y:auto;"></div>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Agregar Fotos</label>
+                <input type="file" id="modal_fotos" name="fotos" class="form-control bg-secondary text-light" multiple accept="image/*" disabled />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <div>
+              <button id="btnEditar" class="btn btn-info">✏️ Editar</button>
+              <button id="btnGuardar" class="btn btn-success" style="display:none;">💾 Guardar</button>
+              <button id="modal_eliminar" class="btn btn-danger">🗑️ Eliminar</button>
+            </div>
+            <button class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- JS: jQuery, Bootstrap, DataTables, Buttons, tu JS y plugins -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+  <!-- Dependencias para Buttons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+  <!-- DataTables Buttons core y plugins -->
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
+
+  <!-- Tus scripts -->
+  <script src="/js/main_actividades.js"></script>
+  <script src="/js/main_tendido.js"></script>
+  <script src="js/main.js"></script>
+    <script src="js/navbar.js"></script>
+
+  <!-- Flatpickr y Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+/* Reset ligero y box-sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── FONDO ─────────────────────────────────────────────────────────────────── */
+body:not(#index-page) {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url('../assets/telecom-bg.jpg') no-repeat center/cover;
+  min-height: 100vh;
+  color: #e0e0e0;
+}
+
+/* Capa semitransparente principal (excepto index) */
+body:not(#index-page) .overlay {
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 8px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+body:not(#index-page) h2 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 4px #000;
+}
+
+/* Tarjetas y modales */
+body:not(#index-page) .card,
+body:not(#index-page) .modal-content {
+  background-color: #686767 !important;
+}
+body:not(#index-page) .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+body:not(#index-page) .card-title {
+  color: #fff;
+}
+body:not(#index-page) .card-text {
+  color: #f7f4f4;
+}
+
+/* Botones personalizados */
+.btn-outline-primary {
+  color: #64b5f6;
+  border-color: #64b5f6;
+  transition: background-color 0.2s;
+}
+.btn-outline-primary:hover {
+  background-color: #64b5f6;
+  color: #000;
+}
+.btn-outline-success {
+  color: #81c784;
+  border-color: #81c784;
+  transition: background-color 0.2s;
+}
+.btn-outline-success:hover {
+  background-color: #81c784;
+  color: #000;
+}
+
+/* ──────────────── SIDEBAR ────────────────── */
+/* Sidebar fijo solo en desktop (>=768px) */
+@media (min-width: 768px) {
+  .menuLateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    background: #1f1f1f;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+  }
+  /* Espacio para el sidebar */
+  body:not(#index-page) main,
+  body:not(#index-page) .overlay {
+    margin-left: 250px;
+    padding: 2rem 1rem;
+    background: rgba(2, 2, 2, 0.6);
+    min-height: 100vh;
+    color: #fdfafa;
+  }
+}
+
+/* Sidebar dentro del offcanvas (móvil) */
+.offcanvas .menuLateral {
+  position: static !important;
+  width: 100% !important;
+  height: auto !important;
+  padding: 0 !important;
+  flex-direction: column;
+}
+
+/* Logo circular encima del menú lateral */
+.menuLateral .logo-container {
+  width: 100%;
+  padding: 1rem 0;
+  text-align: center;
+}
+.menuLateral .logo-container img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+}
+
+/* Lista del menú */
+.menuLateral ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+.menuLateral li {
+  width: 90%;
+}
+.menuLateral a {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #2b2b2b;
+  color: #ccc;
+  border-radius: 0.75rem;
+  text-align: left;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.menuLateral a:hover {
+  background: #53abf3;
+  color: #000;
+}
+
+/* Grupos desplegables */
+.menuLateral .menu-group .menu-group-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  user-select: none;
+  color: #ccc;
+  transition: background 0.2s, color 0.2s;
+}
+.menuLateral .menu-group .menu-group-title:hover {
+  background: #2b2b2b;
+  color: #fff;
+}
+.menuLateral .menu-group .menu-group-title::after {
+  content: '▸';
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+.menuLateral .menu-group.open .menu-group-title::after {
+  transform: rotate(90deg);
+}
+.menuLateral .menu-group-items {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.menuLateral .menu-group.open .menu-group-items {
+  display: block;
+}
+.menuLateral .menu-group-items li a {
+  padding: 0.5rem 2rem;
+}
+
+/* ──────────────── CONTENIDO PRINCIPAL & TABLAS ────────────────── */
+/* Tablas DataTables responsivas */
+.dataTables_wrapper {
+  width: 100% !important;
+  overflow-x: auto;
+}
+table.dataTable {
+  width: 100% !important;
+}
+
+/* Textos en tablas y formularios */
+body:not(#index-page) .card-text,
+body:not(#index-page) .form-label,
+body:not(#index-page) table.dataTable tr,
+body:not(#index-page) th,
+body:not(#index-page) td {
+  color: #000 !important;
+}
+
+/* Inputs y selects oscuros */
+input.form-control,
+.form-select,
+.dataTables_wrapper .dataTables_filter input {
+  background-color: #3a3a3a;
+  color: #ddd;
+  border: 1px solid #555;
+}
+
+/* Formulario centrado */
+.form-container {
+  background-color: #b6b5b5;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+.form-container .form-label {
+  color: #ddd;
+}
+.form-container .form-control,
+.form-container .form-select,
+.form-container textarea {
+  background-color: #202020;
+  color: #fdfdfd;
+  border: 1px solid #303030;
+}
+
+/* ──────────────── RESPONSIVE MÓVIL (<768px) ────────────────── */
+@media (max-width: 767.98px) {
+  /* Contenido sin margen lateral */
+  body:not(#index-page) main,
+  body:not(#index-page) .overlay {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}

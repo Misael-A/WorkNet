@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📊 Reporte de Fusión</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- DataTables & Buttons CSS -->
+  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+  <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet" />
+  <!-- Flatpickr CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <!-- Tu CSS base -->
+  <link href="css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body data-tipo="fusion">
+
+  <!-- Navbar -->
+  <div id="navbar-placeholder"></div>
+
+      <!-- Contenido principal -->
+      <main class="col-12 col-md-10 p-4">
+        <h2 class="mb-4">📑 Reporte de Fusión</h2>
+
+        <!-- Tarjeta de Filtros -->
+        <div class="card bg-white border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <!-- Fila de filtros y botón Resumen -->
+            <div class="row g-3 align-items-end">
+              <div class="col-md-2">
+                <label class="form-label">Fecha desde</label>
+                <input id="fecha_desde" type="date" class="form-control" />
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Fecha hasta</label>
+                <input id="fecha_hasta" type="date" class="form-control" />
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Hora desde</label>
+                <input id="hora_desde" type="time" class="form-control" />
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Hora hasta</label>
+                <input id="hora_hasta" type="time" class="form-control" />
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Técnico</label>
+                <select id="filtro_tecnico" class="form-select">
+                  <option value="">Todos</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Zona</label>
+                <select id="filtro_zona" class="form-select">
+                  <option value="">Todas</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Estado</label>
+                <select id="filtro_estado" class="form-select">
+                  <option value="">Todos</option>
+                  <option value="Realizado">Realizado</option>
+                  <option value="Inconcluso">Inconcluso</option>
+                  <option value="No realizado">No realizado</option>
+                </select>
+              </div>
+              <div class="col-md-2 d-grid">
+                <button id="btn_resumen" class="btn btn-primary">🔍 Resumen</button>
+              </div>
+            </div>
+
+            <!-- Botón Reporte rápido (debajo de Resumen) -->
+            <div class="mt-3 d-flex justify-content-end align-items-center">
+              <small class="me-2 text-muted">Reporte rápido</small>
+              <button id="btn_reporte_rapido"
+                      class="btn btn-danger rounded-circle"
+                      style="width:48px; height:48px; line-height:1;"
+                      title="Reporte rápido">⚡</button>
+            </div>
+
+            <!-- Contenedor DataTables buttons -->
+            <div id="buttonsContainer" class="mt-4"></div>
+          </div>
+        </div>
+
+        <!-- Tabla de previsualización -->
+        <div class="table-responsive">
+          <table id="tablaReportes" class="table table-striped table-bordered w-100">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Actividad</th>
+                <th>Técnico</th>
+                <th>Zona</th>
+                <th>Tipo Trabajo</th>
+                <th>Estado</th>
+                <th>F. Inicio</th>
+                <th>H. Inicio</th>
+                <th>F. Fin</th>
+                <th>H. Fin</th>
+                <th>Coordenadas</th>
+                <th>Detalle</th>
+                <th>Observaciones</th>
+                <th>Mensaje</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- Modal Reporte Rápido -->
+        <div class="modal fade" id="modalReporteRapido" tabindex="-1">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Reporte Rápido Fusión</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive">
+                  <table id="tablaReporteRapido" class="table table-striped w-100">
+                    <thead>
+                      <tr>
+                        <th>Técnico</th>
+                        <th>Fecha</th>
+                        <th>Inicio</th>
+                        <th>Fin</th>
+                        <th>Actividades</th>
+                        <th>Zonas</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- JS libs -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <!-- Lógica principal -->
+  <script src="js/main_reportes.js"></script>
+  <script src="js/navbar.js"></script>
+</body>
+
+</html>

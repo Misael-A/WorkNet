@@ -1,0 +1,20 @@
+# Node / JS
+node_modules/
+dist/
+
+# Python / Flask
+__pycache__/
+*.pyc
+instance/
+.env
+
+# IDEs
+.vscode/
+.idea/
+
+# SO
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+.env

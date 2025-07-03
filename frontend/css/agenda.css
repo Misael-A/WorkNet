@@ -1,0 +1,50 @@
+/* ==== Agenda: fondo y contenedor ==== */
+body[data-tipo="agenda"] #calendar {
+  background-color: #1e1e2d;    /* fondo oscuro sólido */
+  color: #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ==== Toolbar ==== */
+.fc .fc-toolbar {
+  background-color: #27293d;
+  color: #e0e0e0;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+.fc .fc-toolbar .fc-button {
+  background: #3a3f55;
+  border: none;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+.fc .fc-toolbar .fc-button:hover {
+  background: #505674;
+}
+
+/* ==== Celdas ==== */
+.fc .fc-daygrid-day {
+  background: #222235;
+  border: 1px solid #2b2b3e;
+  border-radius: 4px;
+}
+.fc .fc-daygrid-day-number {
+  color: #aaa;
+  padding: 0.3rem;
+}
+.fc .fc-day-today {
+  background: #33334d !important;
+}
+
+/* ==== Eventos ==== */
+.fc-event {
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 2px 4px;
+}
