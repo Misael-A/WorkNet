@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - WorkNet</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Fondo con imagen -->
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/221808/sky.jpg" class="background"
+            alt="Fondo de la página">
+
+        <!-- Círculos infinitos -->
+        <div class="circle-container"></div>
+
+        <!-- Contenedor del login -->
+        <div class="login-container">
+            <h1>Bienvenido a WorkNet</h1>
+            <form id="loginForm" action="/login" method="POST">
+                <input type="text" id="username" name="username" placeholder="Usuario" required>
+                <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                <button type="submit">Iniciar sesión</button>
+            </form>
+            <p id="error-message"></p>
+        </div>
+    </div>
+
+    <script>
+     document.addEventListener("DOMContentLoaded", () => {
+  const circleContainer = document.querySelector('.circle-container');
+  const numberOfCircles = 200;  // Número de círculos a generar
+
+  // Generar círculos de manera dinámica
+  for (let i = 0; i < numberOfCircles; i++) {
+    const circle = document.createElement('div');
+    circle.classList.add('circle');
+
+    // Asignar posiciones aleatorias para cada círculo
+    const startX = Math.random() * 100;  // Posición aleatoria en el eje X (de 0% a 100%)
+    const startY = Math.random() * 100;  // Posición aleatoria en el eje Y (de 0% a 100%)
+
+    // Aplicar estas posiciones directamente con estilo en lugar de usar CSS Variables
+    circle.style.left = `${startX}vw`;  // Convertir la posición a un porcentaje del ancho de la pantalla
+    circle.style.top = `${startY}vh`;   // Convertir la posición a un porcentaje del alto de la pantalla
+
+    // Establecer animación de movimiento hacia arriba
+    circle.style.setProperty('--start-x', `${startX}vw`);
+    circle.style.setProperty('--start-y', `${startY}vh`);
+
+    // Añadir el círculo al contenedor
+    circleContainer.appendChild(circle);
+
+    // Asignar animación de movimiento hacia arriba
+    setCircleAnimation(circle);
+  }
+
+  function setCircleAnimation(circle) {
+    // Establecer la animación de movimiento hacia arriba (lluvia invertida)
+    const keyframesMove = `@keyframes move-up {
+      0% { transform: translate3d(${circle.style.left}, ${circle.style.top}, 0); }
+      100% { transform: translate3d(${circle.style.left}, -10vh, 0); }
+    }`;
+
+    // Crear y agregar las animaciones al CSS dinámicamente
+    const styleSheet = document.styleSheets[0];
+    styleSheet.insertRule(keyframesMove, styleSheet.cssRules.length);
+
+    // Asignar la animación al círculo
+    circle.style.animation = `move-up 15s linear infinite, fadein 3s ease-in-out infinite, scale 4s infinite`;
+  }
+});
+
+
+    </script>
+</body>
+
+</html>
